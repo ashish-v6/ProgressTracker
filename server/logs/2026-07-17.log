@@ -1,0 +1,164 @@
+[2026-07-17T15:55:42.507Z] [INFO] Starting server process...
+[2026-07-17T15:55:42.567Z] [INFO] Successfully connected to MongoDB Database
+[2026-07-17T15:55:42.575Z] [INFO] Server successfully started on port 5000 in development mode
+[2026-07-17T15:55:42.576Z] [INFO] API Documentation available at http://localhost:5000/api-docs
+[2026-07-17T15:55:57.539Z] [INFO] Starting server process...
+[2026-07-17T15:55:57.598Z] [INFO] Successfully connected to MongoDB Database
+[2026-07-17T15:55:57.605Z] [ERROR] Uncaught Exception thrown at index level: | Meta: {"message":"listen EADDRINUSE: address already in use :::5000","stack":"Error: listen EADDRINUSE: address already in use :::5000\n    at Server.setupListenHandle [as _listen2] (node:net:2008:16)\n    at listenInCluster (node:net:2065:12)\n    at Server.listen (node:net:2170:7)\n    at app.listen (C:\\Users\\ashis\\Documents\\Projects\\ProgressTracker\\server\\node_modules\\express\\lib\\application.js:635:24)\n    at C:\\Users\\ashis\\Documents\\Projects\\ProgressTracker\\server\\dist\\index.js:21:34\n    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)"}
+[2026-07-17T15:56:38.977Z] [INFO] ::ffff:127.0.0.1 HEAD /api-docs/ 200 3106 - 7.735 ms
+[2026-07-17T15:58:02.957Z] [INFO] Starting server process...
+[2026-07-17T15:58:03.015Z] [INFO] Successfully connected to MongoDB Database
+[2026-07-17T15:58:03.024Z] [ERROR] Uncaught Exception thrown at index level: | Meta: {"message":"listen EADDRINUSE: address already in use :::5000","stack":"Error: listen EADDRINUSE: address already in use :::5000\n    at Server.setupListenHandle [as _listen2] (node:net:2008:16)\n    at listenInCluster (node:net:2065:12)\n    at Server.listen (node:net:2170:7)\n    at app.listen (C:\\Users\\ashis\\Documents\\Projects\\ProgressTracker\\server\\node_modules\\express\\lib\\application.js:635:24)\n    at C:\\Users\\ashis\\Documents\\Projects\\ProgressTracker\\server\\src\\index.ts:21:24\n    at processTicksAndRejections (node:internal/process/task_queues:104:5)"}
+[2026-07-17T15:58:22.158Z] [WARN] [Client Operational Error] 404 - Endpoint not found: GET / | Meta: {}
+[2026-07-17T15:58:22.170Z] [INFO] ::1 GET / 404 67 - 14.229 ms
+[2026-07-17T15:58:22.445Z] [WARN] [Client Operational Error] 404 - Endpoint not found: GET /favicon.ico | Meta: {}
+[2026-07-17T15:58:22.451Z] [INFO] ::1 GET /favicon.ico 404 78 - 2.636 ms
+[2026-07-17T16:04:38.092Z] [INFO] Starting server process...
+[2026-07-17T16:04:38.198Z] [INFO] Successfully connected to MongoDB Database
+[2026-07-17T16:04:38.214Z] [ERROR] Uncaught Exception thrown at index level: | Meta: {"message":"listen EADDRINUSE: address already in use :::5000","stack":"Error: listen EADDRINUSE: address already in use :::5000\n    at Server.setupListenHandle [as _listen2] (node:net:2008:16)\n    at listenInCluster (node:net:2065:12)\n    at Server.listen (node:net:2170:7)\n    at app.listen (C:\\Users\\ashis\\Documents\\Projects\\ProgressTracker\\server\\node_modules\\express\\lib\\application.js:635:24)\n    at C:\\Users\\ashis\\Documents\\Projects\\ProgressTracker\\server\\src\\index.ts:21:24\n    at processTicksAndRejections (node:internal/process/task_queues:104:5)"}
+[2026-07-17T16:06:01.048Z] [WARN] [Client Operational Error] 401 - Not authorized. Token is invalid. | Meta: {}
+[2026-07-17T16:06:01.065Z] [INFO] ::1 GET /api/auth/me 401 75 - 9.029 ms
+[2026-07-17T16:06:09.994Z] [WARN] [Client Operational Error] 401 - Not authorized. Token is invalid. | Meta: {}
+[2026-07-17T16:06:10.020Z] [INFO] ::1 GET /api/auth/me 401 75 - 3.612 ms
+[2026-07-17T16:06:10.096Z] [WARN] [Client Operational Error] 401 - Not authorized. Token is invalid. | Meta: {}
+[2026-07-17T16:06:10.181Z] [INFO] ::1 GET /api/auth/me 401 75 - 114.648 ms
+[2026-07-17T16:06:30.518Z] [INFO] ::ffff:127.0.0.1 HEAD /api-docs/ 200 3106 - 1.748 ms
+[2026-07-17T16:07:36.010Z] [WARN] [Client Operational Error] 401 - Not authorized. Token is invalid. | Meta: {}
+[2026-07-17T16:07:36.018Z] [INFO] ::1 GET /api/auth/me 401 75 - 3.521 ms
+[2026-07-17T16:07:36.026Z] [WARN] [Client Operational Error] 401 - Not authorized. Token is invalid. | Meta: {}
+[2026-07-17T16:07:36.032Z] [INFO] ::1 GET /api/auth/me 401 75 - 6.055 ms
+[2026-07-17T16:08:03.889Z] [INFO] Starting server process...
+[2026-07-17T16:08:03.943Z] [INFO] Successfully connected to MongoDB Database
+[2026-07-17T16:08:03.952Z] [ERROR] Uncaught Exception thrown at index level: | Meta: {"message":"listen EADDRINUSE: address already in use :::5000","stack":"Error: listen EADDRINUSE: address already in use :::5000\n    at Server.setupListenHandle [as _listen2] (node:net:2008:16)\n    at listenInCluster (node:net:2065:12)\n    at Server.listen (node:net:2170:7)\n    at app.listen (C:\\Users\\ashis\\Documents\\Projects\\ProgressTracker\\server\\node_modules\\express\\lib\\application.js:635:24)\n    at C:\\Users\\ashis\\Documents\\Projects\\ProgressTracker\\server\\src\\index.ts:21:24\n    at processTicksAndRejections (node:internal/process/task_queues:104:5)"}
+[2026-07-17T16:09:41.153Z] [WARN] [Client Operational Error] 401 - Not authorized. Token is invalid. | Meta: {}
+[2026-07-17T16:09:41.160Z] [INFO] ::1 GET /api/auth/me 401 75 - 2.782 ms
+[2026-07-17T16:09:41.170Z] [WARN] [Client Operational Error] 401 - Not authorized. Token is invalid. | Meta: {}
+[2026-07-17T16:09:41.179Z] [INFO] ::1 GET /api/auth/me 401 75 - 11.343 ms
+[2026-07-17T16:10:58.914Z] [WARN] [Client Operational Error] 401 - Not authorized. Token is invalid. | Meta: {}
+[2026-07-17T16:10:58.917Z] [INFO] ::1 GET /api/auth/me 401 75 - 2.695 ms
+[2026-07-17T16:10:58.931Z] [WARN] [Client Operational Error] 401 - Not authorized. Token is invalid. | Meta: {}
+[2026-07-17T16:10:58.935Z] [INFO] ::1 GET /api/auth/me 401 75 - 10.794 ms
+[2026-07-17T16:11:27.659Z] [INFO] Starting server process...
+[2026-07-17T16:11:27.768Z] [INFO] Successfully connected to MongoDB Database
+[2026-07-17T16:11:27.809Z] [ERROR] Uncaught Exception thrown at index level: | Meta: {"message":"listen EADDRINUSE: address already in use :::5000","stack":"Error: listen EADDRINUSE: address already in use :::5000\n    at Server.setupListenHandle [as _listen2] (node:net:2008:16)\n    at listenInCluster (node:net:2065:12)\n    at Server.listen (node:net:2170:7)\n    at app.listen (C:\\Users\\ashis\\Documents\\Projects\\ProgressTracker\\server\\node_modules\\express\\lib\\application.js:635:24)\n    at C:\\Users\\ashis\\Documents\\Projects\\ProgressTracker\\server\\src\\index.ts:21:24\n    at processTicksAndRejections (node:internal/process/task_queues:104:5)"}
+[2026-07-17T16:11:42.567Z] [WARN] [Client Operational Error] 401 - Not authorized. Token is invalid. | Meta: {}
+[2026-07-17T16:11:42.572Z] [INFO] ::1 GET /api/auth/me 401 75 - 4.172 ms
+[2026-07-17T16:11:42.586Z] [WARN] [Client Operational Error] 401 - Not authorized. Token is invalid. | Meta: {}
+[2026-07-17T16:11:42.597Z] [INFO] ::1 GET /api/auth/me 401 75 - 10.478 ms
+[2026-07-17T16:11:44.132Z] [INFO] Starting server process...
+[2026-07-17T16:11:44.219Z] [INFO] Successfully connected to MongoDB Database
+[2026-07-17T16:11:44.232Z] [ERROR] Uncaught Exception thrown at index level: | Meta: {"message":"listen EADDRINUSE: address already in use :::5000","stack":"Error: listen EADDRINUSE: address already in use :::5000\n    at Server.setupListenHandle [as _listen2] (node:net:2008:16)\n    at listenInCluster (node:net:2065:12)\n    at Server.listen (node:net:2170:7)\n    at app.listen (C:\\Users\\ashis\\Documents\\Projects\\ProgressTracker\\server\\node_modules\\express\\lib\\application.js:635:24)\n    at C:\\Users\\ashis\\Documents\\Projects\\ProgressTracker\\server\\src\\index.ts:21:24\n    at processTicksAndRejections (node:internal/process/task_queues:104:5)"}
+[2026-07-17T16:12:12.735Z] [INFO] Starting server process...
+[2026-07-17T16:12:12.792Z] [INFO] Successfully connected to MongoDB Database
+[2026-07-17T16:12:12.803Z] [ERROR] Uncaught Exception thrown at index level: | Meta: {"message":"listen EADDRINUSE: address already in use :::5000","stack":"Error: listen EADDRINUSE: address already in use :::5000\n    at Server.setupListenHandle [as _listen2] (node:net:2008:16)\n    at listenInCluster (node:net:2065:12)\n    at Server.listen (node:net:2170:7)\n    at app.listen (C:\\Users\\ashis\\Documents\\Projects\\ProgressTracker\\server\\node_modules\\express\\lib\\application.js:635:24)\n    at C:\\Users\\ashis\\Documents\\Projects\\ProgressTracker\\server\\src\\index.ts:21:24\n    at processTicksAndRejections (node:internal/process/task_queues:104:5)"}
+[2026-07-17T16:14:23.149Z] [INFO] ::ffff:127.0.0.1 HEAD /api-docs/ 200 3106 - 1.448 ms
+[2026-07-17T16:16:13.439Z] [INFO] Starting server process...
+[2026-07-17T16:16:13.493Z] [INFO] Successfully connected to MongoDB Database
+[2026-07-17T16:16:13.499Z] [INFO] Server successfully started on port 5000 in development mode
+[2026-07-17T16:16:13.501Z] [INFO] API Documentation available at http://localhost:5000/api-docs
+[2026-07-17T16:16:58.542Z] [INFO] Termination signal received. Starting graceful server shutdown...
+[2026-07-17T16:16:58.546Z] [INFO] Express server connection terminated.
+[2026-07-17T16:16:58.715Z] [INFO] MongoDB database connection terminated.
+[2026-07-17T16:17:26.764Z] [INFO] Starting server process...
+[2026-07-17T16:17:26.839Z] [INFO] Successfully connected to MongoDB Database
+[2026-07-17T16:17:26.848Z] [INFO] Server successfully started on port 5000 in development mode
+[2026-07-17T16:17:26.849Z] [INFO] API Documentation available at http://localhost:5000/api-docs
+[2026-07-17T16:18:04.441Z] [INFO] Starting server process...
+[2026-07-17T16:18:04.503Z] [INFO] Successfully connected to MongoDB Database
+[2026-07-17T16:18:04.510Z] [INFO] Server successfully started on port 5000 in development mode
+[2026-07-17T16:18:04.511Z] [INFO] API Documentation available at http://localhost:5000/api-docs
+[2026-07-17T16:18:14.194Z] [WARN] [Client Operational Error] 400 - Invalid JSON request payload | Meta: {}
+[2026-07-17T16:18:14.207Z] [INFO] ::1 POST /api/auth/register 400 70 - 495.655 ms
+[2026-07-17T16:18:19.582Z] [WARN] [Client Operational Error] 400 - Invalid JSON request payload | Meta: {}
+[2026-07-17T16:18:19.585Z] [INFO] ::1 POST /api/auth/register 400 70 - 7.154 ms
+[2026-07-17T16:18:28.473Z] [INFO] ::1 POST /api/auth/register 201 247 - 267.646 ms
+[2026-07-17T16:19:46.468Z] [INFO] Starting server process...
+[2026-07-17T16:19:46.524Z] [INFO] Successfully connected to MongoDB Database
+[2026-07-17T16:19:46.533Z] [ERROR] Uncaught Exception thrown at index level: | Meta: {"message":"listen EADDRINUSE: address already in use :::5000","stack":"Error: listen EADDRINUSE: address already in use :::5000\n    at Server.setupListenHandle [as _listen2] (node:net:2008:16)\n    at listenInCluster (node:net:2065:12)\n    at Server.listen (node:net:2170:7)\n    at app.listen (C:\\Users\\ashis\\Documents\\Projects\\ProgressTracker\\server\\node_modules\\express\\lib\\application.js:635:24)\n    at C:\\Users\\ashis\\Documents\\Projects\\ProgressTracker\\server\\src\\index.ts:21:24\n    at processTicksAndRejections (node:internal/process/task_queues:104:5)"}
+[2026-07-17T16:19:52.825Z] [WARN] [Client Operational Error] 401 - Not authorized. Token is invalid. | Meta: {}
+[2026-07-17T16:19:52.833Z] [INFO] ::1 GET /api/auth/me 401 75 - 8.019 ms
+[2026-07-17T16:19:52.845Z] [WARN] [Client Operational Error] 401 - Not authorized. Token is invalid. | Meta: {}
+[2026-07-17T16:19:52.850Z] [INFO] ::1 GET /api/auth/me 401 75 - 4.958 ms
+[2026-07-17T16:19:52.898Z] [WARN] [Client Operational Error] 401 - Invalid refresh token | Meta: {}
+[2026-07-17T16:19:52.911Z] [INFO] ::1 POST /api/auth/refresh 401 63 - 43.108 ms
+[2026-07-17T16:19:52.925Z] [WARN] [Client Operational Error] 401 - Invalid refresh token | Meta: {}
+[2026-07-17T16:19:52.945Z] [INFO] ::1 POST /api/auth/refresh 401 63 - 62.039 ms
+[2026-07-17T16:20:05.874Z] [INFO] ::1 POST /api/auth/register 201 241 - 180.548 ms
+[2026-07-17T16:20:06.098Z] [INFO] ::1 POST /api/auth/login 200 431 - 208.797 ms
+[2026-07-17T16:20:06.226Z] [INFO] ::1 GET /api/tasks?limit=10000 200 106 - 47.545 ms
+[2026-07-17T16:24:43.168Z] [INFO] Starting server process...
+[2026-07-17T16:24:43.283Z] [INFO] Successfully connected to MongoDB Database
+[2026-07-17T16:24:43.294Z] [INFO] Server successfully started on port 5000 in development mode
+[2026-07-17T16:24:43.301Z] [INFO] API Documentation available at http://localhost:5000/api-docs
+[2026-07-17T16:25:48.413Z] [INFO] Starting server process...
+[2026-07-17T16:25:48.514Z] [INFO] Successfully connected to MongoDB Database
+[2026-07-17T16:25:48.523Z] [INFO] Server successfully started on port 5000 in development mode
+[2026-07-17T16:25:48.524Z] [INFO] API Documentation available at http://localhost:5000/api-docs
+[2026-07-17T16:28:39.648Z] [INFO] ::ffff:127.0.0.1 HEAD /api-docs/ 200 3106 - 9.915 ms
+[2026-07-17T16:30:58.508Z] [INFO] Starting server process...
+[2026-07-17T16:30:58.656Z] [INFO] Successfully connected to MongoDB Database
+[2026-07-17T16:30:58.705Z] [INFO] Server successfully started on port 5000 in development mode
+[2026-07-17T16:30:58.715Z] [INFO] API Documentation available at http://localhost:5000/api-docs
+[2026-07-17T16:35:03.211Z] [INFO] Starting server process...
+[2026-07-17T16:35:03.280Z] [INFO] Successfully connected to MongoDB Database
+[2026-07-17T16:35:03.288Z] [INFO] Server successfully started on port 5000 in development mode
+[2026-07-17T16:35:03.290Z] [INFO] API Documentation available at http://localhost:5000/api-docs
+[2026-07-17T16:38:27.890Z] [INFO] Starting server process...
+[2026-07-17T16:38:27.956Z] [INFO] Successfully connected to MongoDB Database
+[2026-07-17T16:38:27.962Z] [INFO] Server successfully started on port 5000 in development mode
+[2026-07-17T16:38:27.964Z] [INFO] API Documentation available at http://localhost:5000/api-docs
+[2026-07-17T16:38:41.880Z] [INFO] Starting server process...
+[2026-07-17T16:38:41.973Z] [INFO] Successfully connected to MongoDB Database
+[2026-07-17T16:38:41.982Z] [INFO] Server successfully started on port 5000 in development mode
+[2026-07-17T16:38:41.984Z] [INFO] API Documentation available at http://localhost:5000/api-docs
+[2026-07-17T16:51:30.726Z] [WARN] [Client Operational Error] 401 - Not authorized. Token is invalid. | Meta: {}
+[2026-07-17T16:51:30.740Z] [INFO] ::1 GET /api/auth/me 401 75 - 13.494 ms
+[2026-07-17T16:51:30.748Z] [WARN] [Client Operational Error] 401 - Not authorized. Token is invalid. | Meta: {}
+[2026-07-17T16:51:30.752Z] [INFO] ::1 GET /api/auth/me 401 75 - 4.051 ms
+[2026-07-17T16:51:30.957Z] [INFO] ::1 POST /api/auth/refresh 200 266 - 192.689 ms
+[2026-07-17T16:51:30.965Z] [INFO] ::1 POST /api/auth/refresh 200 266 - 108.518 ms
+[2026-07-17T16:51:31.036Z] [INFO] ::1 GET /api/auth/me 200 248 - 27.126 ms
+[2026-07-17T16:51:31.064Z] [INFO] ::1 GET /api/auth/me 304 - - 12.661 ms
+[2026-07-17T16:51:31.277Z] [INFO] ::1 GET /api/tasks?limit=10000 304 - - 36.425 ms
+[2026-07-17T16:51:35.976Z] [INFO] ::1 GET /api/statistics/weekly?localDate=2026-07-17 200 202 - 67.675 ms
+[2026-07-17T16:51:36.009Z] [INFO] ::1 GET /api/statistics/category 200 81 - 25.094 ms
+[2026-07-17T16:51:36.050Z] [INFO] ::1 GET /api/statistics/monthly?localDate=2026-07-17 200 203 - 111.422 ms
+[2026-07-17T16:51:36.119Z] [INFO] ::1 GET /api/statistics/category 304 - - 36.581 ms
+[2026-07-17T16:51:36.133Z] [INFO] ::1 GET /api/dashboard?localDate=2026-07-17 200 507 - 249.876 ms
+[2026-07-17T16:51:36.139Z] [INFO] ::1 GET /api/statistics/weekly?localDate=2026-07-17 304 - - 68.383 ms
+[2026-07-17T16:51:36.148Z] [INFO] ::1 GET /api/statistics/monthly?localDate=2026-07-17 304 - - 54.016 ms
+[2026-07-17T16:51:36.189Z] [INFO] ::1 GET /api/dashboard?localDate=2026-07-17 304 - - 36.996 ms
+[2026-07-17T16:51:37.868Z] [INFO] ::1 GET /api/recurring-tasks 200 86 - 13.679 ms
+[2026-07-17T16:51:37.897Z] [INFO] ::1 GET /api/recurring-tasks 304 - - 17.761 ms
+[2026-07-17T16:51:39.040Z] [INFO] ::1 GET /api/statistics/category 304 - - 17.722 ms
+[2026-07-17T16:51:39.051Z] [INFO] ::1 GET /api/statistics/weekly?localDate=2026-07-17 304 - - 44.319 ms
+[2026-07-17T16:51:39.061Z] [INFO] ::1 GET /api/statistics/monthly?localDate=2026-07-17 304 - - 46.526 ms
+[2026-07-17T16:51:39.111Z] [INFO] ::1 GET /api/statistics/category 304 - - 32.977 ms
+[2026-07-17T16:51:39.144Z] [INFO] ::1 GET /api/dashboard?localDate=2026-07-17 304 - - 146.509 ms
+[2026-07-17T16:51:39.156Z] [INFO] ::1 GET /api/statistics/weekly?localDate=2026-07-17 304 - - 61.361 ms
+[2026-07-17T16:51:39.161Z] [INFO] ::1 GET /api/statistics/monthly?localDate=2026-07-17 304 - - 61.886 ms
+[2026-07-17T16:51:39.222Z] [INFO] ::1 GET /api/dashboard?localDate=2026-07-17 304 - - 54.708 ms
+[2026-07-17T16:51:42.988Z] [INFO] ::1 GET /api/calendar/tasks?date=2026-07-17 200 67 - 11.088 ms
+[2026-07-17T16:51:43.025Z] [INFO] ::1 GET /api/calendar/tasks?date=2026-07-17 304 - - 25.818 ms
+[2026-07-17T16:51:46.395Z] [INFO] ::1 GET /api/calendar?year=2026&month=7 200 3495 - 3426.187 ms
+[2026-07-17T16:51:46.726Z] [INFO] ::1 GET /api/calendar/tasks?date=2026-07-17 304 - - 22.598 ms
+[2026-07-17T16:51:46.784Z] [INFO] ::1 GET /api/calendar/tasks?date=2026-07-17 304 - - 45.972 ms
+[2026-07-17T16:51:46.820Z] [INFO] ::1 GET /api/reports/weekly?localDate=2026-07-17 200 376 - 25.511 ms
+[2026-07-17T16:51:46.835Z] [INFO] ::1 GET /api/reports/weekly?localDate=2026-07-17 304 - - 5.745 ms
+[2026-07-17T16:51:48.864Z] [INFO] ::1 GET /api/calendar/tasks?date=2026-07-17 304 - - 10.707 ms
+[2026-07-17T16:51:48.885Z] [INFO] ::1 GET /api/calendar/tasks?date=2026-07-17 304 - - 8.311 ms
+[2026-07-17T16:51:49.941Z] [INFO] ::1 GET /api/calendar?year=2026&month=7 304 - - 3532.917 ms
+[2026-07-17T16:51:52.850Z] [INFO] ::1 GET /api/calendar?year=2026&month=7 304 - - 2905.153 ms
+[2026-07-17T16:51:55.724Z] [INFO] ::1 GET /api/calendar?year=2026&month=7 304 - - 2868.273 ms
+[2026-07-17T16:51:56.816Z] [INFO] ::1 GET /api/reports/weekly?localDate=2026-07-17 304 - - 13.968 ms
+[2026-07-17T16:51:56.846Z] [INFO] ::1 GET /api/reports/weekly?localDate=2026-07-17 304 - - 15.247 ms
+[2026-07-17T16:51:58.447Z] [INFO] ::1 GET /api/calendar?year=2026&month=7 304 - - 2690.059 ms
+[2026-07-17T16:51:58.909Z] [INFO] ::1 GET /api/statistics/category 304 - - 12.241 ms
+[2026-07-17T16:51:58.915Z] [INFO] ::1 GET /api/statistics/weekly?localDate=2026-07-17 304 - - 33.131 ms
+[2026-07-17T16:51:58.936Z] [INFO] ::1 GET /api/statistics/monthly?localDate=2026-07-17 304 - - 40.025 ms
+[2026-07-17T16:51:58.966Z] [INFO] ::1 GET /api/statistics/category 304 - - 22.486 ms
+[2026-07-17T16:51:58.979Z] [INFO] ::1 GET /api/dashboard?localDate=2026-07-17 304 - - 103.043 ms
+[2026-07-17T16:51:58.991Z] [INFO] ::1 GET /api/statistics/weekly?localDate=2026-07-17 304 - - 41.942 ms
+[2026-07-17T16:51:59.020Z] [INFO] ::1 GET /api/statistics/monthly?localDate=2026-07-17 304 - - 60.173 ms
+[2026-07-17T16:51:59.062Z] [INFO] ::1 GET /api/dashboard?localDate=2026-07-17 304 - - 59.454 ms
+[2026-07-17T16:52:01.469Z] [INFO] ::1 GET /api/calendar?year=2026&month=7 304 - - 3018.537 ms
