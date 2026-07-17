@@ -1,0 +1,81 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    font-family: 'Inter', sans-serif;
+    @apply bg-zinc-950 text-zinc-100 min-h-screen overflow-x-hidden;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Inter', sans-serif;
+    @apply tracking-tight font-semibold;
+  }
+}
+
+@layer utilities {
+  /* Minimalist solid panel styles (Vercel/Linear dashboard style) */
+  .glass-panel {
+    @apply bg-zinc-900 border border-zinc-800 shadow-sm rounded-xl;
+  }
+
+  .glass-panel-light {
+    @apply bg-zinc-900/50 border border-zinc-800/40 rounded-xl;
+  }
+
+  .glass-panel-interactive {
+    @apply bg-zinc-900 border border-zinc-800 shadow-sm rounded-xl transition-all duration-200;
+  }
+
+  .glass-panel-interactive:hover {
+    @apply bg-zinc-900 border-zinc-700 shadow-md;
+    transform: translateY(-1px);
+  }
+
+  /* Custom Scrollbar */
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+
+  ::-webkit-scrollbar-track {
+    @apply bg-zinc-950;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    @apply bg-zinc-800 rounded-full;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-zinc-700;
+  }
+
+  /* Calendar cell hover */
+  .heatmap-cell {
+    transition: transform 0.15s ease, filter 0.15s ease;
+  }
+  .heatmap-cell:hover {
+    transform: scale(1.1);
+    filter: brightness(1.1);
+    z-index: 10;
+  }
+}
+
+/* Custom styles for input placeholder text */
+input::placeholder, textarea::placeholder {
+  color: rgba(161, 161, 170, 0.4);
+}
+
+/* Hide default input type number arrows */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type=number] {
+  -moz-appearance: textfield;
+}
