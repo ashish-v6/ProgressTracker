@@ -5,6 +5,12 @@ dotenv.config();
 import mongoose from 'mongoose';
 import app from './app';
 import logger from './utils/logger';
+import dns from "dns";
+
+dns.setServers([
+  '1.1.1.1',
+  '8.8.8.8'
+])
 
 const PORT = process.env.PORT || 5000;
 const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://127.0.0.1:27017/progresstracker';
@@ -16,7 +22,7 @@ mongoose
   .connect(MONGODB_URI)
   .then(() => {
     logger.info('Successfully connected to MongoDB Database');
-    
+
     // Start listening on port
     const server = app.listen(PORT, () => {
       logger.info(`Server successfully started on port ${PORT} in ${process.env.NODE_ENV || 'development'} mode`);
@@ -26,10 +32,10 @@ mongoose
     // Handle system shutdown signals gracefully
     const gracefulShutdown = () => {
       logger.info('Termination signal received. Starting graceful server shutdown...');
-      
+
       server.close(() => {
         logger.info('Express server connection terminated.');
-        
+
         mongoose.connection
           .close()
           .then(() => {

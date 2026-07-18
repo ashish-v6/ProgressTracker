@@ -26,12 +26,16 @@ const app = express();
 app.use(helmet());
 
 // 2. CORS configurations with credentials/cookies support
-const allowedOrigins = [
+const defaultOrigins = [
   'http://localhost:3000',
   'http://localhost:5173',
   'http://127.0.0.1:3000',
   'http://127.0.0.1:5173'
 ];
+const allowedOrigins: string[] = process.env.CORS_ORIGIN
+  ? process.env.CORS_ORIGIN.split(',').map((o) => o.trim())
+  : defaultOrigins;
+
 app.use(
   cors({
     origin: (origin, callback) => {
