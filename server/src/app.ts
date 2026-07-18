@@ -22,6 +22,11 @@ import reportsRoutes from './routes/reports.routes';
 
 const app = express();
 
+// Required for Render (and any reverse-proxy deployment):
+// Without this, req.ip is the proxy's internal IP (not the client's real IP),
+// req.secure is always false, and express-rate-limit throttles all users as one.
+app.set('trust proxy', 1);
+
 // 1. Security Headers (Helmet)
 app.use(helmet());
 
