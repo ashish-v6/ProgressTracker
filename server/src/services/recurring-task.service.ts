@@ -118,25 +118,32 @@ class RecurringTaskService {
 
           if (!existingTask) {
             // Spawn the daily task
-            await taskRepository.create({
-              title: template.title,
-              description: template.description || '',
-              category: template.category,
-              color: template.color,
-              priority: template.priority as any,
-              status: 'pending',
-              targetHours: template.targetHours,
-              targetMinutes: template.targetMinutes,
-              actualHours: 0,
-              actualMinutes: 0,
-              completed: false,
-              repeatRule: 'none',
-              dueDate: currentStart,
-              notes: template.notes || '',
-              tags: template.tags || [],
-              createdBy: template.createdBy,
-              templateId: template._id
-            });
+            try {
+              await taskRepository.create({
+                title: template.title,
+                description: template.description || '',
+                category: template.category,
+                color: template.color,
+                priority: template.priority as any,
+                status: 'pending',
+                targetHours: template.targetHours,
+                targetMinutes: template.targetMinutes,
+                actualHours: 0,
+                actualMinutes: 0,
+                completed: false,
+                repeatRule: 'none',
+                dueDate: currentStart,
+                notes: template.notes || '',
+                tags: template.tags || [],
+                createdBy: template.createdBy,
+                templateId: template._id
+              });
+            } catch (error: any) {
+              // Ignore duplicate key errors (code 11000) from concurrent requests
+              if (error.code !== 11000) {
+                throw error;
+              }
+            }
           }
         }
       }

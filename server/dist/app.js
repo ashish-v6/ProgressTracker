@@ -23,6 +23,10 @@ const statistics_routes_1 = __importDefault(require("./routes/statistics.routes"
 const calendar_routes_1 = __importDefault(require("./routes/calendar.routes"));
 const reports_routes_1 = __importDefault(require("./routes/reports.routes"));
 const app = (0, express_1.default)();
+// Required for Render (and any reverse-proxy deployment):
+// Without this, req.ip is the proxy's internal IP (not the client's real IP),
+// req.secure is always false, and express-rate-limit throttles all users as one.
+app.set('trust proxy', 1);
 // 1. Security Headers (Helmet)
 app.use((0, helmet_1.default)());
 // 2. CORS configurations with credentials/cookies support

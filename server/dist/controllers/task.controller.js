@@ -2,8 +2,6 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.getUpcomingTasks = exports.getTodayTasks = exports.listTasks = exports.bulkComplete = exports.bulkDelete = exports.markIncomplete = exports.markComplete = exports.duplicateTask = exports.deleteTask = exports.updateTask = exports.getTask = exports.createTask = void 0;
 const task_service_1 = require("../services/task.service");
-const task_repository_1 = require("../repositories/task.repository");
-const recurring_task_service_1 = require("../services/recurring-task.service");
 const async_handler_1 = require("../utils/async-handler");
 const errors_1 = require("../utils/errors");
 const task_dto_1 = require("../dtos/task.dto");
@@ -108,13 +106,8 @@ exports.getTodayTasks = (0, async_handler_1.asyncHandler)(async (req, res) => {
     startOfDay.setHours(0, 0, 0, 0);
     const endOfDay = new Date(targetDate.getTime());
     endOfDay.setHours(23, 59, 59, 999);
-    // 1. Generate any missing recurring tasks for today
-    await recurring_task_service_1.recurringTaskService.generateTasksForDateRange(req.user.id, startOfDay, endOfDay);
-    // 2. Fetch all daily tasks due today
-    const tasks = await task_repository_1.taskRepository.find({
-        createdBy: req.user.id,
-        dueDate: { $gte: startOfDay, $lte: endOfDay }
-    }, null, { sort: { createdAt: 1 } });
+    // 1. Generate and resolve recurring tasks for today (from both template systems)
+    const tasks = await task_service_1.taskService.resolveRecurringTasksForDate(req.user.id, targetDate);
     res.status(200).json({
         success: true,
         message: "Today's tasks resolved successfully",
@@ -135,13 +128,8 @@ exports.getUpcomingTasks = (0, async_handler_1.asyncHandler)(async (req, res) =>
     startOfDay.setHours(0, 0, 0, 0);
     const endOfDay = new Date(endDate.getTime());
     endOfDay.setHours(23, 59, 59, 999);
-    // 1. Generate any missing recurring tasks for this range
-    await recurring_task_service_1.recurringTaskService.generateTasksForDateRange(req.user.id, startOfDay, endOfDay);
-    // 2. Fetch all daily tasks in the range
-    const tasks = await task_repository_1.taskRepository.find({
-        createdBy: req.user.id,
-        dueDate: { $gte: startOfDay, $lte: endOfDay }
-    }, null, { sort: { dueDate: 1, createdAt: 1 } });
+    // 1. Generate and resolve recurring tasks for this range (from both template systems)
+    const tasks = await task_service_1.taskService.resolveTasksForDateRange(req.user.id, startOfDay, endOfDay);
     res.status(200).json({
         success: true,
         message: `Upcoming tasks for the next ${limitDays} days retrieved successfully`,

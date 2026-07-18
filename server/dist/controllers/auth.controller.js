@@ -8,10 +8,13 @@ const async_handler_1 = require("../utils/async-handler");
 const auth_dto_1 = require("../dtos/auth.dto");
 // Cookie config helper
 const setRefreshTokenCookie = (res, token) => {
+    const isProduction = process.env.NODE_ENV === 'production';
     res.cookie('refreshToken', token, {
         httpOnly: true,
-        secure: process.env.NODE_ENV === 'production',
-        sameSite: 'strict',
+        secure: isProduction,
+        // 'none' is required in production so cross-origin requests (Vercel → Render)
+        // include the HttpOnly cookie. 'lax' is safe for local development (same-origin).
+        sameSite: isProduction ? 'none' : 'lax',
         maxAge: 7 * 24 * 60 * 60 * 1000 // 7 days in milliseconds
     });
 };
@@ -44,10 +47,11 @@ exports.logout = (0, async_handler_1.asyncHandler)(async (req, res) => {
         await auth_service_1.authService.logout(token);
     }
     // Clear cookie from client browser
+    // sameSite must match what was set on login, otherwise clearCookie has no effect
     res.clearCookie('refreshToken', {
         httpOnly: true,
         secure: process.env.NODE_ENV === 'production',
-        sameSite: 'strict'
+        sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax'
     });
     res.status(200).json({
         success: true,

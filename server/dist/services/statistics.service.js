@@ -4,6 +4,7 @@ exports.statisticsService = void 0;
 const mongoose_1 = require("mongoose");
 const task_repository_1 = require("../repositories/task.repository");
 const progress_service_1 = require("./progress.service");
+const task_service_1 = require("./task.service");
 class StatisticsService {
     /**
      * Helper to format a local Date to YYYY-MM-DD
@@ -22,11 +23,8 @@ class StatisticsService {
         start.setHours(0, 0, 0, 0);
         const end = new Date(endDate.getTime());
         end.setHours(23, 59, 59, 999);
-        // Fetch tasks in range
-        const tasks = await task_repository_1.taskRepository.find({
-            createdBy: new mongoose_1.Types.ObjectId(userId),
-            dueDate: { $gte: start, $lte: end }
-        });
+        // Resolve and fetch tasks in range (fully instantiated for recurring templates)
+        const tasks = await task_service_1.taskService.resolveTasksForDateRange(userId, start, end);
         // Overdue tasks: due before today and not completed
         const todayStart = new Date();
         todayStart.setHours(0, 0, 0, 0);

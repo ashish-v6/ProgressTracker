@@ -53,8 +53,8 @@ export const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose }) => {
           <FiZap className="w-4.5 h-4.5 text-white" />
         </div>
         <div>
-          <h2 className="text-sm font-bold text-zinc-100 tracking-wide">Become A Pro</h2>
-          <span className="text-[9px] text-zinc-500 font-semibold uppercase tracking-wider">Progress Tracker</span>
+          <h2 className="text-sm font-bold text-zinc-100 tracking-wide">Progress Tracker</h2>
+          <span className="text-[9px] text-zinc-500 font-semibold uppercase tracking-wider">Save time smartly</span>
         </div>
       </div>
 
@@ -119,7 +119,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose }) => {
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-3 min-w-0">
               <img
-                src={user.avatarUrl}
+                src={user.avatarUrl || "/image.png"}
                 alt={user.name}
                 className="w-8 h-8 rounded-lg object-cover border border-zinc-800"
               />

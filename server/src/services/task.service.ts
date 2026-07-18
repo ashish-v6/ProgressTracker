@@ -1,5 +1,6 @@
 import { taskRepository } from '../repositories/task.repository';
 import { streakService } from './streak.service';
+import { recurringTaskService } from './recurring-task.service';
 import { ITask } from '../interfaces/task.interface';
 import { NotFoundError, ValidationError } from '../utils/errors';
 import { Types } from 'mongoose';
@@ -102,9 +103,12 @@ class TaskService {
     // Delete the task itself
     await taskRepository.delete(taskId);
 
-    // If it was a recurring template, delete all associated concrete instances
+    // If it was a recurring template, delete associated daily tasks that are NOT completed
     if (task.repeatRule !== 'none' && !task.templateId) {
-      await taskRepository.deleteMany({ templateId: task._id });
+      await taskRepository.deleteMany({ 
+        templateId: task._id,
+        completed: false
+      });
     }
 
     await streakService.recalculateStreak(userId);
@@ -200,10 +204,13 @@ class TaskService {
     const endOfDay = new Date(targetDate.getTime());
     endOfDay.setHours(23, 59, 59, 999);
 
-    // 1. Get templates
+    // 1. Trigger generation for RecurringTask model templates first to ensure unified behavior
+    await recurringTaskService.generateTasksForDateRange(userId, startOfDay, endOfDay);
+
+    // 2. Get Task-model-based templates (legacy / alternative)
     const templates = await taskRepository.findRecurringTemplates(userId);
 
-    // 2. Loop templates and check if they match the date
+    // 3. Loop templates and check if they match the date
     for (const template of templates) {
       if (new Date(template.createdAt) > endOfDay) {
         continue;
@@ -217,25 +224,32 @@ class TaskService {
         );
 
         if (!instance) {
-          await taskRepository.create({
-            title: template.title,
-            description: template.description,
-            category: template.category,
-            color: template.color,
-            priority: template.priority,
-            status: 'pending',
-            targetHours: template.targetHours,
-            targetMinutes: template.targetMinutes,
-            actualHours: 0,
-            actualMinutes: 0,
-            completed: false,
-            repeatRule: 'none',
-            dueDate: startOfDay,
-            notes: template.notes,
-            tags: template.tags,
-            createdBy: template.createdBy,
-            templateId: template._id
-          });
+          try {
+            await taskRepository.create({
+              title: template.title,
+              description: template.description,
+              category: template.category,
+              color: template.color,
+              priority: template.priority,
+              status: 'pending',
+              targetHours: template.targetHours,
+              targetMinutes: template.targetMinutes,
+              actualHours: 0,
+              actualMinutes: 0,
+              completed: false,
+              repeatRule: 'none',
+              dueDate: startOfDay,
+              notes: template.notes,
+              tags: template.tags,
+              createdBy: template.createdBy,
+              templateId: template._id
+            });
+          } catch (error: any) {
+            // Ignore duplicate key errors from concurrent requests
+            if (error.code !== 11000) {
+              throw error;
+            }
+          }
         }
       }
     }

@@ -1,6 +1,7 @@
 import { Response } from 'express';
 import { Types } from 'mongoose';
 import { taskRepository } from '../repositories/task.repository';
+import { taskService } from '../services/task.service';
 import { AuthenticatedRequest } from '../types/express';
 import { asyncHandler } from '../utils/async-handler';
 import { ValidationError } from '../utils/errors';
@@ -31,10 +32,7 @@ export const getDailyReport = asyncHandler(async (req: AuthenticatedRequest, res
   const endOfDay = new Date(targetDate.getTime());
   endOfDay.setHours(23, 59, 59, 999);
 
-  const tasks = await taskRepository.find({
-    createdBy: new Types.ObjectId(req.user!.id),
-    dueDate: { $gte: startOfDay, $lte: endOfDay }
-  });
+  const tasks = await taskService.resolveTasksForDateRange(req.user!.id, startOfDay, endOfDay);
 
   const total = tasks.length;
   const completed = tasks.filter(t => t.completed || t.status === 'completed').length;
@@ -77,10 +75,7 @@ export const getWeeklyReport = asyncHandler(async (req: AuthenticatedRequest, re
   const end = new Date(targetDate.getTime());
   end.setHours(23, 59, 59, 999);
 
-  const tasks = await taskRepository.find({
-    createdBy: new Types.ObjectId(req.user!.id),
-    dueDate: { $gte: start, $lte: end }
-  });
+  const tasks = await taskService.resolveTasksForDateRange(req.user!.id, start, end);
 
   const total = tasks.length;
   const completed = tasks.filter(t => t.completed || t.status === 'completed').length;
@@ -141,10 +136,7 @@ export const getMonthlyReport = asyncHandler(async (req: AuthenticatedRequest, r
   const end = new Date(targetDate.getTime());
   end.setHours(23, 59, 59, 999);
 
-  const tasks = await taskRepository.find({
-    createdBy: new Types.ObjectId(req.user!.id),
-    dueDate: { $gte: start, $lte: end }
-  });
+  const tasks = await taskService.resolveTasksForDateRange(req.user!.id, start, end);
 
   const total = tasks.length;
   const completed = tasks.filter(t => t.completed || t.status === 'completed').length;

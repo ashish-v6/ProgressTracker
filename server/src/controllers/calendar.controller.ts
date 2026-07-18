@@ -2,6 +2,7 @@ import { Response } from 'express';
 import { Types } from 'mongoose';
 import { analyticsService } from '../services/analytics.service';
 import { taskRepository } from '../repositories/task.repository';
+import { taskService } from '../services/task.service';
 import { AuthenticatedRequest } from '../types/express';
 import { asyncHandler } from '../utils/async-handler';
 import { ValidationError } from '../utils/errors';
@@ -46,11 +47,8 @@ export const getTasksByDate = asyncHandler(async (req: AuthenticatedRequest, res
   const endOfDay = new Date(targetDate.getTime());
   endOfDay.setHours(23, 59, 59, 999);
 
-  // We should query all tasks for the user on this date
-  const tasks = await taskRepository.find({
-    createdBy: new Types.ObjectId(req.user!.id),
-    dueDate: { $gte: startOfDay, $lte: endOfDay }
-  });
+  // Resolve and query all tasks for the user on this date (including recurring tasks)
+  const tasks = await taskService.resolveRecurringTasksForDate(req.user!.id, targetDate);
 
   res.status(200).json({
     success: true,

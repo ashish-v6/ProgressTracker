@@ -1,6 +1,7 @@
 import { Types } from 'mongoose';
 import { taskRepository } from '../repositories/task.repository';
 import { progressService } from './progress.service';
+import { taskService } from './task.service';
 import { ITask } from '../interfaces/task.interface';
 
 class StatisticsService {
@@ -35,11 +36,8 @@ class StatisticsService {
     const end = new Date(endDate.getTime());
     end.setHours(23, 59, 59, 999);
 
-    // Fetch tasks in range
-    const tasks = await taskRepository.find({
-      createdBy: new Types.ObjectId(userId),
-      dueDate: { $gte: start, $lte: end }
-    });
+    // Resolve and fetch tasks in range (fully instantiated for recurring templates)
+    const tasks = await taskService.resolveTasksForDateRange(userId, start, end);
 
     // Overdue tasks: due before today and not completed
     const todayStart = new Date();

@@ -1,9 +1,8 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.getTasksByDate = exports.getCalendar = void 0;
-const mongoose_1 = require("mongoose");
 const analytics_service_1 = require("../services/analytics.service");
-const task_repository_1 = require("../repositories/task.repository");
+const task_service_1 = require("../services/task.service");
 const async_handler_1 = require("../utils/async-handler");
 const errors_1 = require("../utils/errors");
 exports.getCalendar = (0, async_handler_1.asyncHandler)(async (req, res) => {
@@ -36,11 +35,8 @@ exports.getTasksByDate = (0, async_handler_1.asyncHandler)(async (req, res) => {
     startOfDay.setHours(0, 0, 0, 0);
     const endOfDay = new Date(targetDate.getTime());
     endOfDay.setHours(23, 59, 59, 999);
-    // We should query all tasks for the user on this date
-    const tasks = await task_repository_1.taskRepository.find({
-        createdBy: new mongoose_1.Types.ObjectId(req.user.id),
-        dueDate: { $gte: startOfDay, $lte: endOfDay }
-    });
+    // Resolve and query all tasks for the user on this date (including recurring tasks)
+    const tasks = await task_service_1.taskService.resolveRecurringTasksForDate(req.user.id, targetDate);
     res.status(200).json({
         success: true,
         message: 'Tasks retrieved successfully',

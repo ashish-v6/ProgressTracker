@@ -117,5 +117,16 @@ TaskSchema.index({ createdBy: 1, dueDate: 1 });
 TaskSchema.index({ createdBy: 1, status: 1 });
 TaskSchema.index({ createdBy: 1, completed: 1 });
 
+// Prevent duplicate task generation from recurring templates under concurrent requests
+TaskSchema.index(
+  { templateId: 1, dueDate: 1 },
+  { 
+    unique: true, 
+    partialFilterExpression: { 
+      templateId: { $type: "objectId" } 
+    } 
+  }
+);
+
 export const Task = mongoose.model<ITask>('Task', TaskSchema);
 export default Task;

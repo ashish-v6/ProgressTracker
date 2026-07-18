@@ -1,8 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.getMonthlyReport = exports.getWeeklyReport = exports.getDailyReport = void 0;
-const mongoose_1 = require("mongoose");
-const task_repository_1 = require("../repositories/task.repository");
+const task_service_1 = require("../services/task.service");
 const async_handler_1 = require("../utils/async-handler");
 const errors_1 = require("../utils/errors");
 // Helper to convert task actual hours and minutes to decimal hours
@@ -26,10 +25,7 @@ exports.getDailyReport = (0, async_handler_1.asyncHandler)(async (req, res) => {
     startOfDay.setHours(0, 0, 0, 0);
     const endOfDay = new Date(targetDate.getTime());
     endOfDay.setHours(23, 59, 59, 999);
-    const tasks = await task_repository_1.taskRepository.find({
-        createdBy: new mongoose_1.Types.ObjectId(req.user.id),
-        dueDate: { $gte: startOfDay, $lte: endOfDay }
-    });
+    const tasks = await task_service_1.taskService.resolveTasksForDateRange(req.user.id, startOfDay, endOfDay);
     const total = tasks.length;
     const completed = tasks.filter(t => t.completed || t.status === 'completed').length;
     const pending = total - completed;
@@ -64,10 +60,7 @@ exports.getWeeklyReport = (0, async_handler_1.asyncHandler)(async (req, res) => 
     start.setHours(0, 0, 0, 0);
     const end = new Date(targetDate.getTime());
     end.setHours(23, 59, 59, 999);
-    const tasks = await task_repository_1.taskRepository.find({
-        createdBy: new mongoose_1.Types.ObjectId(req.user.id),
-        dueDate: { $gte: start, $lte: end }
-    });
+    const tasks = await task_service_1.taskService.resolveTasksForDateRange(req.user.id, start, end);
     const total = tasks.length;
     const completed = tasks.filter(t => t.completed || t.status === 'completed').length;
     const pending = total - completed;
@@ -117,10 +110,7 @@ exports.getMonthlyReport = (0, async_handler_1.asyncHandler)(async (req, res) =>
     start.setHours(0, 0, 0, 0);
     const end = new Date(targetDate.getTime());
     end.setHours(23, 59, 59, 999);
-    const tasks = await task_repository_1.taskRepository.find({
-        createdBy: new mongoose_1.Types.ObjectId(req.user.id),
-        dueDate: { $gte: start, $lte: end }
-    });
+    const tasks = await task_service_1.taskService.resolveTasksForDateRange(req.user.id, start, end);
     const total = tasks.length;
     const completed = tasks.filter(t => t.completed || t.status === 'completed').length;
     const pending = total - completed;

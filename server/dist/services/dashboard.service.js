@@ -6,6 +6,7 @@ const task_repository_1 = require("../repositories/task.repository");
 const user_repository_1 = require("../repositories/user.repository");
 const progress_service_1 = require("./progress.service");
 const statistics_service_1 = require("./statistics.service");
+const task_service_1 = require("./task.service");
 const DEFAULT_SCORE_CONFIG = {
     completedTaskWeight: 0.4,
     completedHourWeight: 0.4,
@@ -142,11 +143,8 @@ class DashboardService {
         startOfToday.setHours(0, 0, 0, 0);
         const endOfToday = new Date(todayDate.getTime());
         endOfToday.setHours(23, 59, 59, 999);
-        // Today's tasks
-        const todayTasks = await task_repository_1.taskRepository.find({
-            createdBy: new mongoose_1.Types.ObjectId(userId),
-            dueDate: { $gte: startOfToday, $lte: endOfToday }
-        });
+        // Today's tasks (fully resolved/instantiated for recurring templates)
+        const todayTasks = await task_service_1.taskService.resolveRecurringTasksForDate(userId, todayDate);
         // Recalculate streak
         const { streak, longestStreak } = await this.recalculateStreak(userId, localDateStr);
         // Averages and stats over last 30 days

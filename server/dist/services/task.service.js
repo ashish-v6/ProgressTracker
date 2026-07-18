@@ -3,6 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.taskService = void 0;
 const task_repository_1 = require("../repositories/task.repository");
 const streak_service_1 = require("./streak.service");
+const recurring_task_service_1 = require("./recurring-task.service");
 const errors_1 = require("../utils/errors");
 const mongoose_1 = require("mongoose");
 class TaskService {
@@ -92,9 +93,12 @@ class TaskService {
         }
         // Delete the task itself
         await task_repository_1.taskRepository.delete(taskId);
-        // If it was a recurring template, delete all associated concrete instances
+        // If it was a recurring template, delete associated daily tasks that are NOT completed
         if (task.repeatRule !== 'none' && !task.templateId) {
-            await task_repository_1.taskRepository.deleteMany({ templateId: task._id });
+            await task_repository_1.taskRepository.deleteMany({
+                templateId: task._id,
+                completed: false
+            });
         }
         await streak_service_1.streakService.recalculateStreak(userId);
     }
@@ -170,9 +174,11 @@ class TaskService {
         startOfDay.setHours(0, 0, 0, 0);
         const endOfDay = new Date(targetDate.getTime());
         endOfDay.setHours(23, 59, 59, 999);
-        // 1. Get templates
+        // 1. Trigger generation for RecurringTask model templates first to ensure unified behavior
+        await recurring_task_service_1.recurringTaskService.generateTasksForDateRange(userId, startOfDay, endOfDay);
+        // 2. Get Task-model-based templates (legacy / alternative)
         const templates = await task_repository_1.taskRepository.findRecurringTemplates(userId);
-        // 2. Loop templates and check if they match the date
+        // 3. Loop templates and check if they match the date
         for (const template of templates) {
             if (new Date(template.createdAt) > endOfDay) {
                 continue;
@@ -180,25 +186,33 @@ class TaskService {
             if (this.doesTemplateMatchDate(template, targetDate)) {
                 const instance = await task_repository_1.taskRepository.findInstanceByTemplateAndDate(template.id, startOfDay, endOfDay);
                 if (!instance) {
-                    await task_repository_1.taskRepository.create({
-                        title: template.title,
-                        description: template.description,
-                        category: template.category,
-                        color: template.color,
-                        priority: template.priority,
-                        status: 'pending',
-                        targetHours: template.targetHours,
-                        targetMinutes: template.targetMinutes,
-                        actualHours: 0,
-                        actualMinutes: 0,
-                        completed: false,
-                        repeatRule: 'none',
-                        dueDate: startOfDay,
-                        notes: template.notes,
-                        tags: template.tags,
-                        createdBy: template.createdBy,
-                        templateId: template._id
-                    });
+                    try {
+                        await task_repository_1.taskRepository.create({
+                            title: template.title,
+                            description: template.description,
+                            category: template.category,
+                            color: template.color,
+                            priority: template.priority,
+                            status: 'pending',
+                            targetHours: template.targetHours,
+                            targetMinutes: template.targetMinutes,
+                            actualHours: 0,
+                            actualMinutes: 0,
+                            completed: false,
+                            repeatRule: 'none',
+                            dueDate: startOfDay,
+                            notes: template.notes,
+                            tags: template.tags,
+                            createdBy: template.createdBy,
+                            templateId: template._id
+                        });
+                    }
+                    catch (error) {
+                        // Ignore duplicate key errors from concurrent requests
+                        if (error.code !== 11000) {
+                            throw error;
+                        }
+                    }
                 }
             }
         }

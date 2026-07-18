@@ -3,6 +3,7 @@ import { taskRepository } from '../repositories/task.repository';
 import { userRepository } from '../repositories/user.repository';
 import { progressService } from './progress.service';
 import { statisticsService } from './statistics.service';
+import { taskService } from './task.service';
 import { ITask } from '../interfaces/task.interface';
 
 export interface ProductivityScoreConfig {
@@ -185,11 +186,8 @@ class DashboardService {
     const endOfToday = new Date(todayDate.getTime());
     endOfToday.setHours(23, 59, 59, 999);
 
-    // Today's tasks
-    const todayTasks = await taskRepository.find({
-      createdBy: new Types.ObjectId(userId),
-      dueDate: { $gte: startOfToday, $lte: endOfToday }
-    });
+    // Today's tasks (fully resolved/instantiated for recurring templates)
+    const todayTasks = await taskService.resolveRecurringTasksForDate(userId, todayDate);
 
     // Recalculate streak
     const { streak, longestStreak } = await this.recalculateStreak(userId, localDateStr);

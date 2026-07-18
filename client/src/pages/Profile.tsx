@@ -7,10 +7,10 @@ import { FiUser, FiMail, FiZap, FiAward, FiClock, FiStar, FiCheck } from 'react-
 
 export const Profile: React.FC = () => {
   const { user, updateProfile } = useAuth();
-  
+
   const [name, setName] = useState(user?.name || 'Alex Mercer');
   const [email, setEmail] = useState(user?.email || 'alex.mercer@devmail.com');
-  const [avatar, setAvatar] = useState(user?.avatarUrl || 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=150&h=150&q=80');
+  const [avatar, setAvatar] = useState(user?.avatarUrl || '/image.png');
   const [isEditing, setIsEditing] = useState(false);
   const [profileSaved, setProfileSaved] = useState(false);
 
@@ -29,7 +29,7 @@ export const Profile: React.FC = () => {
   // Gamification Milestones
   const totalHours = user?.totalStudyHours || 0;
   const streak = user?.streak || 0;
-  
+
   const achievements = [
     {
       id: 'bronze_hours',
@@ -104,7 +104,7 @@ export const Profile: React.FC = () => {
             <div className="space-y-2.5">
               <h3 className="text-xl font-bold text-white">{user?.name}</h3>
               <p className="text-xs text-slate-400">{user?.email}</p>
-              
+
               <div className="flex justify-center space-x-1.5 py-2">
                 <Badge variant="primary">Level 4 Scholar</Badge>
                 <Badge variant="warning">🔥 {user?.streak}d Streak</Badge>
@@ -202,16 +202,15 @@ export const Profile: React.FC = () => {
               {achievements.map((ach) => (
                 <div
                   key={ach.id}
-                  className={`flex items-center space-x-3.5 p-3 rounded-2xl border transition-all ${
-                    ach.unlocked
-                      ? 'bg-blue-500/5 border-blue-500/20 shadow shadow-blue-500/5'
-                      : 'bg-white/[0.01] border-white/5 opacity-40'
-                  }`}
+                  className={`flex items-center space-x-3.5 p-3 rounded-2xl border transition-all ${ach.unlocked
+                    ? 'bg-blue-500/5 border-blue-500/20 shadow shadow-blue-500/5'
+                    : 'bg-white/[0.01] border-white/5 opacity-40'
+                    }`}
                 >
                   <span className="text-3xl shrink-0 p-1 bg-white/5 rounded-xl border border-white/5">
                     {ach.icon}
                   </span>
-                  
+
                   <div className="min-w-0 space-y-0.5">
                     <div className="flex items-center space-x-2">
                       <h4 className="font-bold text-slate-200 truncate">{ach.title}</h4>
