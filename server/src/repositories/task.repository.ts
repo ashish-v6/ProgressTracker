@@ -93,6 +93,9 @@ export class TaskRepository extends BaseRepository<ITask> {
     // Repeat rule filter
     if (filters.repeatRule) {
       query.repeatRule = filters.repeatRule;
+    } else {
+      // By default, exclude recurring templates from task lists
+      query.repeatRule = 'none';
     }
 
     // Template ID filter

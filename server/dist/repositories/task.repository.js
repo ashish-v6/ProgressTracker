@@ -65,6 +65,10 @@ class TaskRepository extends base_repository_1.BaseRepository {
         if (filters.repeatRule) {
             query.repeatRule = filters.repeatRule;
         }
+        else {
+            // By default, exclude recurring templates from task lists
+            query.repeatRule = 'none';
+        }
         // Template ID filter
         if (filters.templateId !== undefined) {
             query.templateId = filters.templateId ? new mongoose_1.Types.ObjectId(filters.templateId) : null;

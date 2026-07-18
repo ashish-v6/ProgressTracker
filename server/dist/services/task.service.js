@@ -148,7 +148,7 @@ class TaskService {
      */
     async bulkComplete(userId, taskIds) {
         const objectIds = taskIds.map(id => new mongoose_1.Types.ObjectId(id));
-        await task_repository_1.taskRepository.updateOne({
+        await task_repository_1.taskRepository.updateMany({
             _id: { $in: objectIds },
             createdBy: new mongoose_1.Types.ObjectId(userId)
         }, {
@@ -157,7 +157,7 @@ class TaskService {
                 completed: true,
                 completedAt: new Date()
             }
-        }, { multi: true });
+        });
         await streak_service_1.streakService.recalculateStreak(userId);
     }
     /**
@@ -231,10 +231,139 @@ class TaskService {
         start.setHours(0, 0, 0, 0);
         const end = new Date(endDate.getTime());
         end.setHours(23, 59, 59, 999);
+        const recurringTemplates = await recurring_task_service_1.recurringTaskService.listRecurringTasks(userId);
+        const activeRecurringTemplates = recurringTemplates.filter(t => t.status === 'active');
+        const legacyTemplates = await task_repository_1.taskRepository.findRecurringTemplates(userId);
+        const existingTasks = await task_repository_1.taskRepository.find({
+            createdBy: userId,
+            dueDate: { $gte: start, $lte: end }
+        });
+        const getLocalDateStr = (d) => {
+            const y = d.getFullYear();
+            const m = String(d.getMonth() + 1).padStart(2, '0');
+            const day = String(d.getDate()).padStart(2, '0');
+            return `${y}-${m}-${day}`;
+        };
+        const existingMap = new Set();
+        existingTasks.forEach(t => {
+            if (t.templateId) {
+                existingMap.add(`${t.templateId.toString()}_${getLocalDateStr(t.dueDate)}`);
+            }
+        });
+        const newTasksToCreate = [];
+        const doesLegacyMatch = (template, date) => {
+            const dayOfWeek = date.getDay();
+            const rule = template.repeatRule;
+            const days = template.repeatDays || [];
+            if (rule === 'daily')
+                return true;
+            if (rule === 'weekdays')
+                return dayOfWeek >= 1 && dayOfWeek <= 5;
+            if (rule === 'weekends')
+                return dayOfWeek === 0 || dayOfWeek === 6;
+            if (rule === 'weekly') {
+                if (days.length > 0)
+                    return days.includes(dayOfWeek);
+                return dayOfWeek === new Date(template.dueDate).getDay();
+            }
+            if (rule === 'custom')
+                return days.includes(dayOfWeek);
+            return false;
+        };
+        const doesRecurringMatch = (template, date) => {
+            const dayOfWeek = date.getDay();
+            const dayOfMonth = date.getDate();
+            const rule = template.repeatRule;
+            const days = template.repeatDays || [];
+            const templateCreatedDate = new Date(template.createdAt);
+            templateCreatedDate.setHours(0, 0, 0, 0);
+            const targetCheckDate = new Date(date.getTime());
+            targetCheckDate.setHours(0, 0, 0, 0);
+            if (targetCheckDate < templateCreatedDate)
+                return false;
+            if (rule === 'daily')
+                return true;
+            if (rule === 'weekdays')
+                return dayOfWeek >= 1 && dayOfWeek <= 5;
+            if (rule === 'weekends')
+                return dayOfWeek === 0 || dayOfWeek === 6;
+            if (rule === 'weekly') {
+                if (days.length > 0)
+                    return days.includes(dayOfWeek);
+                return dayOfWeek === new Date(template.createdAt).getDay();
+            }
+            if (rule === 'monthly') {
+                if (days.length > 0)
+                    return days.includes(dayOfMonth);
+                return dayOfMonth === new Date(template.createdAt).getDate();
+            }
+            if (rule === 'custom')
+                return days.includes(dayOfWeek);
+            return false;
+        };
         const checker = new Date(start.getTime());
         while (checker <= end) {
-            await this.resolveRecurringTasksForDate(userId, checker);
+            const dateStr = getLocalDateStr(checker);
+            const currentStart = new Date(checker.getTime());
+            currentStart.setHours(0, 0, 0, 0);
+            for (const template of activeRecurringTemplates) {
+                if (doesRecurringMatch(template, checker)) {
+                    const key = `${template._id.toString()}_${dateStr}`;
+                    if (!existingMap.has(key)) {
+                        newTasksToCreate.push({
+                            title: template.title,
+                            description: template.description || '',
+                            category: template.category,
+                            color: template.color,
+                            priority: template.priority,
+                            status: 'pending',
+                            targetHours: template.targetHours,
+                            targetMinutes: template.targetMinutes,
+                            actualHours: 0,
+                            actualMinutes: 0,
+                            completed: false,
+                            repeatRule: 'none',
+                            dueDate: currentStart,
+                            notes: template.notes || '',
+                            tags: template.tags || [],
+                            createdBy: template.createdBy,
+                            templateId: template._id
+                        });
+                        existingMap.add(key);
+                    }
+                }
+            }
+            for (const template of legacyTemplates) {
+                if (new Date(template.createdAt) <= currentStart && doesLegacyMatch(template, checker)) {
+                    const key = `${template._id.toString()}_${dateStr}`;
+                    if (!existingMap.has(key)) {
+                        newTasksToCreate.push({
+                            title: template.title,
+                            description: template.description,
+                            category: template.category,
+                            color: template.color,
+                            priority: template.priority,
+                            status: 'pending',
+                            targetHours: template.targetHours,
+                            targetMinutes: template.targetMinutes,
+                            actualHours: 0,
+                            actualMinutes: 0,
+                            completed: false,
+                            repeatRule: 'none',
+                            dueDate: currentStart,
+                            notes: template.notes,
+                            tags: template.tags,
+                            createdBy: template.createdBy,
+                            templateId: template._id
+                        });
+                        existingMap.add(key);
+                    }
+                }
+            }
             checker.setDate(checker.getDate() + 1);
+        }
+        if (newTasksToCreate.length > 0) {
+            await task_repository_1.taskRepository.create(newTasksToCreate);
         }
         return task_repository_1.taskRepository.find({
             createdBy: userId,

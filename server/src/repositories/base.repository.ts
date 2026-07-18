@@ -31,6 +31,10 @@ export class BaseRepository<T extends Document> {
     return this.model.updateOne(filter, update, options).exec() as any;
   }
 
+  async updateMany(filter: FilterQuery<T>, update: UpdateQuery<T>, options?: any): Promise<any> {
+    return this.model.updateMany(filter, update, options).exec() as any;
+  }
+
   async delete(id: string, options?: any): Promise<T | null> {
     return this.model.findByIdAndDelete(id, options).exec() as any;
   }

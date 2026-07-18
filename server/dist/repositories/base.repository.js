@@ -24,6 +24,9 @@ class BaseRepository {
     async updateOne(filter, update, options) {
         return this.model.updateOne(filter, update, options).exec();
     }
+    async updateMany(filter, update, options) {
+        return this.model.updateMany(filter, update, options).exec();
+    }
     async delete(id, options) {
         return this.model.findByIdAndDelete(id, options).exec();
     }

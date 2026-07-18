@@ -8,6 +8,7 @@ export declare class BaseRepository<T extends Document> {
     find(filter: FilterQuery<T>, projection?: any, options?: any): Promise<T[]>;
     update(id: string, update: UpdateQuery<T>, options?: any): Promise<T | null>;
     updateOne(filter: FilterQuery<T>, update: UpdateQuery<T>, options?: any): Promise<any>;
+    updateMany(filter: FilterQuery<T>, update: UpdateQuery<T>, options?: any): Promise<any>;
     delete(id: string, options?: any): Promise<T | null>;
     deleteMany(filter: FilterQuery<T>): Promise<any>;
     count(filter: FilterQuery<T>): Promise<number>;
